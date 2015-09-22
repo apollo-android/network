@@ -13,9 +13,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        AppCompatTextView textView = (AppCompatTextView)findViewById(R.id.text);
-
-        textView.setText(Http.helloWorld("Samples"));
     }
 }
