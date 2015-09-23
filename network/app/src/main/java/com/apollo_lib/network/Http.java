@@ -17,7 +17,10 @@ public class Http {
         private final Charset DEFAULT_CHARSET = Charset.UTF8;
         private final ContentType DEFAULT_CONTENTTYPE = ContentType.OCTECTSTREAM;
 
-        private HttpRequestConfig config;
+        private String url;
+        private ContentType contentType;
+        private Charset charset;
+        private String authToken;
 
         private void testNullOrEmpty(String field, String value) {
             if (value == null || value.isEmpty()) {
@@ -29,6 +32,44 @@ public class Http {
             if (value == null) {
                 throw new IllegalArgumentException(String.format("The %s cannot be null.",field));
             }
+        }
+
+        private HttpRequestConfig createDefaultConfig() {
+            HttpRequestConfig config = new HttpRequestConfig();
+
+            config.setUrl(url);
+
+            if (contentType == null) {
+                config.setContentType(DEFAULT_CONTENTTYPE);
+            }
+            else {
+                config.setContentType(contentType);
+            }
+
+            if (charset == null) {
+                config.setCharset(DEFAULT_CHARSET);
+            }
+            else {
+                config.setCharset(charset);
+            }
+
+            if (authToken != null) {
+                config.setAuthToken(authToken);
+            }
+
+            return config;
+        }
+
+        private HttpRequestConfig method(HttpMethod method, String params) {
+            HttpRequestConfig config = createDefaultConfig();
+
+            if (params != null && !params.isEmpty()) {
+                config.setParams(params);
+            }
+
+            config.setMethod(method);
+
+            return config;
         }
 
         public Builder(String url) {
@@ -43,38 +84,25 @@ public class Http {
             this(url, contentType, charset, null);
         }
 
+        public Builder(String url, ContentType contentType, String authToken) {
+            this(url, contentType, null, authToken);
+        }
+
+        public Builder(String url, String authToken) {
+            this(url, null, null, authToken);
+        }
+
         public Builder(String url, ContentType contentType, Charset charset, String authToken) {
             testNullOrEmpty("URL", url);
 
-            config = new HttpRequestConfig();
-
-            config.setUrl(url);
-
-            if (contentType == null) {
-                config.setContentType(DEFAULT_CONTENTTYPE);
-            }
-
-            if (charset == null) {
-                config.setCharset(DEFAULT_CHARSET);
-            }
-
-            if (authToken != null) {
-                config.setAuthToken(authToken);
-            }
+            this.url = url;
+            this.contentType = contentType;
+            this.charset = charset;
+            this.authToken = authToken;
         }
 
         public HttpRequestConfig get() {
             return get(null);
-        }
-
-        private HttpRequestConfig method(HttpMethod method, String params) {
-            if (params != null && params.isEmpty()) {
-                config.setParams(params);
-            }
-
-            config.setMethod(method);
-
-            return config;
         }
 
         public HttpRequestConfig get(String params) {
@@ -105,17 +133,43 @@ public class Http {
             return method(HttpMethod.DELETE, params);
         }
 
+        public HttpRequestConfig upload(byte[] attachmentFile) {
+            return upload(null, null, attachmentFile);
+        }
+
         public HttpRequestConfig upload(String attachmentName , String attachmentFileName, byte[] attachmentFile) {
-            testNullOrEmpty("attachment name", attachmentName);
-            testNullOrEmpty("attachment filename", attachmentFileName);
             testNull("attachment file", attachmentFile);
 
-            config.setAttachmentName(attachmentName);
-            config.setAttachmentFileName(attachmentFileName);
+            HttpRequestConfig config = createDefaultConfig();
+
+            config.setContentType(ContentType.MULTPART);
+
+            if (attachmentName != null && !attachmentName.isEmpty()) {
+                config.setAttachmentName(attachmentName);
+            }
+
+            if (attachmentFileName != null && !attachmentFileName.isEmpty()) {
+                config.setAttachmentFileName(attachmentFileName);
+            }
+
             config.setAttachmentFile(attachmentFile);
 
             return config;
         }
+    }
+
+    private static String readInputStream(InputStream inputStream, Charset charset) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset.getValue()));
+
+        String line;
+
+        StringBuilder sb = new StringBuilder();
+
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+
+        return sb.toString();
     }
 
     public static HttpResult send(HttpRequestConfig request) throws IOException {
@@ -138,7 +192,9 @@ public class Http {
                 conn.setRequestMethod(request.getMethod().getValue());
             }
 
-            conn.setRequestProperty(AUTH_TOKEN, request.getAuthToken());
+            if (request.getAuthToken() != null && !request.getAuthToken().isEmpty()) {
+                conn.setRequestProperty(AUTH_TOKEN, request.getAuthToken());
+            }
 
             conn.connect();
 
@@ -184,19 +240,5 @@ public class Http {
         }
 
         return result;
-    }
-
-    private static String readInputStream(InputStream inputStream, Charset charset) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset.getValue()));
-
-        String line;
-
-        StringBuilder sb = new StringBuilder();
-
-        while ((line = bufferedReader.readLine()) != null) {
-            sb.append(line + "\n");
-        }
-
-        return sb.toString();
     }
 }
