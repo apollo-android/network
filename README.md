@@ -5,13 +5,13 @@ Apollo-lib
 Android libraries to make your life easier!
 
 
-Network 0.0.2
+Network 0.0.3
 -------------
 
 **Gradle**
 
 ```groovy
-compile 'com.apollo-lib:network:0.0.2'
+compile 'com.apollo-lib:network:0.0.3'
 ```
 
 **HTTP**
