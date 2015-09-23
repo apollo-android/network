@@ -80,6 +80,25 @@ HttpRequestConfig config = builder.upload(file);
 Http.send(config);
 ```
 
+**HEADERS**
+
+```java
+Http.Builder builder = new Http.Builder("https://dummyhost.com/posts");
+
+JSONObject json = new JSONObject();
+
+json.accumulate("title", "foo");
+json.accumulate("body", "bar");
+json.accumulate("userId", 1);
+
+HttpRequestConfig config = builder.post(json.toString());
+
+config.addHeader("X-Application-Id", "T1zX12r2dasdareeafSasda2zG8QxCkaOQ2jIFVQLA3HZ7J");
+config.addHeader("X-REST-API-Key", "Wn5rpappoDAsdq34DAAsdasasA6R4ZUnzdubMc");
+
+HttpResult result =  Http.send(config);
+```
+
 License
 -------
 

@@ -179,6 +179,10 @@ public class Http {
         HttpResult result;
 
         try {
+            for (HttpHeaderField header: request.getHeaders()) {
+                conn.setRequestProperty(header.getFieldName(), header.getValue());
+            }
+
             conn.setRequestProperty(CONTENT_TYPE, request.getContentType().getValue());
 
             if (request.getContentType() == ContentType.MULTPART) {

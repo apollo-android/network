@@ -1,5 +1,9 @@
 package com.apollo_lib.network;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 public class HttpRequestConfig {
 
     private ContentType contentType;
@@ -11,6 +15,49 @@ public class HttpRequestConfig {
     private String attachmentFileName;
     private byte[] attachmentFile;
     private Charset charset;
+    private ArrayList<HttpHeaderField> headerFields;
+
+    public HttpRequestConfig() {
+        headerFields = new ArrayList<>();
+    }
+
+    public void clearHeaders() {
+        this.headerFields.clear();
+    }
+
+    public HttpHeaderField getHeader(String fieldname) {
+        int i = 0;
+
+        HttpHeaderField result = null;
+
+        while(headerFields.size() > i && result == null)
+        {
+            if (headerFields.get(i).getFieldName().toLowerCase() == fieldname.toLowerCase()) {
+                result = headerFields.get(i);
+            }
+            i++;
+        }
+
+        return result;
+    }
+
+    public void removeHeader(String fieldName) {
+        HttpHeaderField header = this.getHeader(fieldName);
+
+        if (header == null) {
+            throw new NoSuchElementException("Header field not found.");
+        }
+
+        headerFields.remove(header);
+    }
+
+    public void addHeader(String fieldName, String value) {
+        headerFields.add(new HttpHeaderField(fieldName, value));
+    }
+
+    List<HttpHeaderField> getHeaders() {
+        return headerFields;
+    }
 
     public ContentType getContentType() {
         return contentType;
