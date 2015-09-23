@@ -14,9 +14,9 @@ Network 0.0.3
 compile 'com.apollo-lib:network:0.0.3'
 ```
 
-**HTTP**
+#####HTTP
 
-**GET**
+######GET
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -26,7 +26,7 @@ HttpRequestConfig config = builder.get();
 Http.send(config);
 ```
 
-**POST**
+######POST
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts");
@@ -42,7 +42,7 @@ HttpRequestConfig config = builder.post(json.toString());
 Http.send(config);
 ```
 
-**PUT**
+######PUT
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -58,7 +58,7 @@ HttpRequestConfig config = builder.put(json.toString());
 Http.send(config);
 ```
 
-**DELETE**
+######DELETE
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -68,7 +68,7 @@ HttpRequestConfig config = builder.delete();
 Http.send(config);
 ```
 
-**UPLOAD**
+######UPLOAD
 
 ```java
 byte[] file = getFile();
@@ -80,7 +80,7 @@ HttpRequestConfig config = builder.upload(file);
 Http.send(config);
 ```
 
-**HEADERS**
+######HEADERS
 
 ```java
 Http.Builder builder = new Http.Builder("https://dummyhost.com/posts");
