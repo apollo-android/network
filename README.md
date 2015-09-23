@@ -8,9 +8,15 @@ Android libraries to make your life easier!
 Network 0.0.2
 -------------
 
-###HTTP
+**Gradle**
 
-####GET
+```groovy
+compile 'com.apollo-lib:network:0.0.2'
+```
+
+**HTTP**
+
+**GET**
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -20,7 +26,7 @@ HttpRequestConfig config = builder.get();
 Http.send(config);
 ```
 
-####POST
+**POST**
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts");
@@ -36,7 +42,7 @@ HttpRequestConfig config = builder.post(json.toString());
 Http.send(config);
 ```
 
-####PUT
+**PUT**
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -52,7 +58,7 @@ HttpRequestConfig config = builder.put(json.toString());
 Http.send(config);
 ```
 
-####DELETE
+**DELETE**
 
 ```java
 Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
@@ -62,7 +68,7 @@ HttpRequestConfig config = builder.delete();
 Http.send(config);
 ```
 
-####UPLOAD
+**UPLOAD**
 
 ```java
 byte[] file = getFile();
@@ -75,7 +81,7 @@ Http.send(config);
 ```
 
 License
-=======
+-------
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
