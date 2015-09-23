@@ -19,14 +19,21 @@
     </section>
 
     <section class="main-content">
-      <h2>
+      <h1>
+<a id="apollo-lib" class="anchor" href="#apollo-lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apollo-lib</h1>
+
+<p>Android libraries to make your life easier!</p>
+
+<h2>
 <a id="network-002" class="anchor" href="#network-002" aria-hidden="true"><span class="octicon octicon-link"></span></a>Network 0.0.2</h2>
 
-<h3>
-<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h3>
+<p><strong>Gradle</strong></p>
 
-<h4>
-<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h4>
+<div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.apollo-lib:network:0.0.2<span class="pl-pds">'</span></span></pre></div>
+
+<p><strong>HTTP</strong></p>
+
+<p><strong>GET</strong></p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -34,8 +41,7 @@
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h4>
+<p><strong>POST</strong></p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts<span class="pl-pds">"</span></span>);
 
@@ -49,8 +55,7 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h4>
+<p><strong>PUT</strong></p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -64,8 +69,7 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h4>
+<p><strong>DELETE</strong></p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -73,8 +77,7 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h4>
+<p><strong>UPLOAD</strong></p>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">byte</span>[] file <span class="pl-k">=</span> getFile();
 
@@ -84,8 +87,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h1>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
 <pre><code>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
