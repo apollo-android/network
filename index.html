@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Apollo-lib by fabianofranca</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Apollo-lib</h1>
+      <h2 class="project-tagline">Android libraries to make your life easier!</h2>
+      <a href="https://github.com/fabianofranca/apollo-lib" class="btn">View on GitHub</a>
+      <a href="https://github.com/fabianofranca/apollo-lib/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/fabianofranca/apollo-lib/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="network-002" class="anchor" href="#network-002" aria-hidden="true"><span class="octicon octicon-link"></span></a>Network 0.0.2</h2>
+
+<h3>
+<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h3>
+
+<h4>
+<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>get();
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h4>
+<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">JSONObject</span> json <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JSONObject</span>();
+
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>post(json<span class="pl-k">.</span>toString());
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h4>
+<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">JSONObject</span> json <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JSONObject</span>();
+
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>put(json<span class="pl-k">.</span>toString());
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h4>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>delete();
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h4>
+<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h4>
+
+<div class="highlight highlight-source-java"><pre><span class="pl-k">byte</span>[] file <span class="pl-k">=</span> getFile();
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/images<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>upload(file);
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<pre><code>Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</code></pre>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/fabianofranca/apollo-lib">Apollo-lib</a> is maintained by <a href="https://github.com/fabianofranca">fabianofranca</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
