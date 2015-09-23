@@ -1,12 +1,81 @@
 Apollo-lib
 ==========
 
+
 Android libraries to make your life easier!
 
-###[Network 0.0.2](network/README.md)
+
+Network 0.0.2
+-------------
+
+###HTTP
+
+####GET
+
+```java
+Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
+
+HttpRequestConfig config = builder.get();
+
+Http.send(config);
+```
+
+####POST
+
+```java
+Http.Builder builder = new Http.Builder("http://dummyhost.com/posts");
+
+JSONObject json = new JSONObject();
+	
+json.accumulate("title", "foo");
+json.accumulate("body", "bar");
+json.accumulate("userId", 1);
+
+HttpRequestConfig config = builder.post(json.toString());
+
+Http.send(config);
+```
+
+####PUT
+
+```java
+Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
+
+JSONObject json = new JSONObject();
+
+json.accumulate("title", "foo");
+json.accumulate("body", "bar");
+json.accumulate("userId", 1);
+
+HttpRequestConfig config = builder.put(json.toString());
+
+Http.send(config);
+```
+
+####DELETE
+
+```java
+Http.Builder builder = new Http.Builder("http://dummyhost.com/posts/1");
+
+HttpRequestConfig config = builder.delete();
+
+Http.send(config);
+```
+
+####UPLOAD
+
+```java
+byte[] file = getFile();
+
+Http.Builder builder = new Http.Builder("http://dummyhost.com/images");
+
+HttpRequestConfig config = builder.upload(file);
+
+Http.send(config);
+```
 
 License
--------
+=======
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
