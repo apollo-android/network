@@ -19,23 +19,19 @@
     </section>
 
     <section class="main-content">
-      <h1>
-<a id="apollo-lib" class="anchor" href="#apollo-lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apollo-lib</h1>
-
-<p>Android libraries to make your life easier!</p>
 
 <h2>
 <a id="network-003" class="anchor" href="#network-003" aria-hidden="true"><span class="octicon octicon-link"></span></a>Network 0.0.3</h2>
 
-<p><strong>Gradle</strong></p>
+<p><strong>HTTP</strong></p>
+
+<h4>
+<a id="gradle" class="anchor" href="#gradle" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradle</h4>
 
 <div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.apollo-lib:network:0.0.3<span class="pl-pds">'</span></span></pre></div>
 
-<h5>
-<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h5>
-
-<h6>
-<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h6>
+<h4>
+<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -43,8 +39,8 @@
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h6>
-<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h6>
+<h4>
+<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts<span class="pl-pds">"</span></span>);
 
@@ -58,8 +54,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h6>
-<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h6>
+<h4>
+<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -73,8 +69,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h6>
-<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h6>
+<h4>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -82,8 +78,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h6>
-<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h6>
+<h4>
+<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">byte</span>[] file <span class="pl-k">=</span> getFile();
 
@@ -93,8 +89,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h6>
-<a id="headers" class="anchor" href="#headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HEADERS</h6>
+<h4>
+<a id="headers" class="anchor" href="#headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HEADERS</h4>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>https://dummyhost.com/posts<span class="pl-pds">"</span></span>);
 
