@@ -5,7 +5,7 @@
 # Files for the Dalvik VM
 *.dex
 
-# Java class files
+# Java class filesgit
 *.class
 
 # Generated files
@@ -30,3 +30,7 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
