@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Apollo-lib</title>
+    <title>Apollo-lib by fabianofranca</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -19,19 +19,23 @@
     </section>
 
     <section class="main-content">
+      <h1>
+<a id="apollo-lib" class="anchor" href="#apollo-lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>Apollo-lib</h1>
+
+<p>Android libraries to make your life easier!</p>
 
 <h2>
-<a id="network-003" class="anchor" href="#network-003" aria-hidden="true"><span class="octicon octicon-link"></span></a>Network 0.0.3</h2>
+<a id="network-004" class="anchor" href="#network-004" aria-hidden="true"><span class="octicon octicon-link"></span></a>Network 0.0.4</h2>
 
-<p><strong>HTTP</strong></p>
+<p><strong>Gradle</strong></p>
 
-<h4>
-<a id="networkgradle" class="anchor" href="#networkgradle" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradle</h4>
-
-<div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.apollo-lib:network:0.0.3<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-groovy"><pre>compile <span class="pl-s"><span class="pl-pds">'</span>com.apollo-lib:network:0.0.4<span class="pl-pds">'</span></span></pre></div>
 
 <h4>
-<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h4>
+<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h4>
+
+<h5>
+<a id="get" class="anchor" href="#get" aria-hidden="true"><span class="octicon octicon-link"></span></a>GET</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -39,8 +43,8 @@
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h4>
+<h5>
+<a id="post" class="anchor" href="#post" aria-hidden="true"><span class="octicon octicon-link"></span></a>POST</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts<span class="pl-pds">"</span></span>);
 
@@ -54,8 +58,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h4>
+<h5>
+<a id="put" class="anchor" href="#put" aria-hidden="true"><span class="octicon octicon-link"></span></a>PUT</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -69,8 +73,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h4>
+<h5>
+<a id="delete" class="anchor" href="#delete" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>http://dummyhost.com/posts/1<span class="pl-pds">"</span></span>);
 
@@ -78,8 +82,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h4>
+<h5>
+<a id="upload" class="anchor" href="#upload" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPLOAD</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-k">byte</span>[] file <span class="pl-k">=</span> getFile();
 
@@ -89,8 +93,8 @@ json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds
 
 <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
 
-<h4>
-<a id="headers" class="anchor" href="#headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HEADERS</h4>
+<h5>
+<a id="headers" class="anchor" href="#headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HEADERS</h5>
 
 <div class="highlight highlight-source-java"><pre><span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>https://dummyhost.com/posts<span class="pl-pds">"</span></span>);
 
@@ -106,6 +110,80 @@ config<span class="pl-k">.</span>addHeader(<span class="pl-s"><span class="pl-pd
 config<span class="pl-k">.</span>addHeader(<span class="pl-s"><span class="pl-pds">"</span>X-REST-API-Key<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Wn5rpappoDAsdq34DAAsdasasA6R4ZUnzdubMc<span class="pl-pds">"</span></span>);
 
 <span class="pl-smi">HttpResult</span> result <span class="pl-k">=</span>  <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);</pre></div>
+
+<h5>
+<a id="interceptors" class="anchor" href="#interceptors" aria-hidden="true"><span class="octicon octicon-link"></span></a>INTERCEPTORS</h5>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">DefaultInterceptor</span> <span class="pl-k">implements</span> <span class="pl-e">HttpInterceptor</span> {
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onOpening</span>(<span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {
+        httpRequestConfig<span class="pl-k">.</span>addHeader(<span class="pl-s"><span class="pl-pds">"</span>X-Application-Id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>T1zX12r2dasdareeafSasda2zG8QxCkaOQ2jIFVQLA3HZ7J<span class="pl-pds">"</span></span>);
+        httpRequestConfig<span class="pl-k">.</span>addHeader(<span class="pl-s"><span class="pl-pds">"</span>X-REST-API-Key<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Wn5rpappoDAsdq34DAAsdasasA6R4ZUnzdubMc<span class="pl-pds">"</span></span>);        
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onConnecting</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {  }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onConnected</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {  }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">HttpResult</span> <span class="pl-en">onResult</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>, <span class="pl-smi">HttpResult</span> <span class="pl-v">httpResult</span>) {
+        <span class="pl-k">return</span> httpResult;
+    }
+}
+
+<span class="pl-c1">...</span>
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span>getInterceptors()<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">DefaultInterceptor</span>());
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>https://dummyhost.com/posts<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">JSONObject</span> json <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">JSONObject</span>();
+
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>);
+json<span class="pl-k">.</span>accumulate(<span class="pl-s"><span class="pl-pds">"</span>userId<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>post(json<span class="pl-k">.</span>toString());
+
+<span class="pl-smi">HttpResult</span> result <span class="pl-k">=</span>  <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);
+</pre></div>
+
+<h5>
+<a id="request-interceptors" class="anchor" href="#request-interceptors" aria-hidden="true"><span class="octicon octicon-link"></span></a>REQUEST INTERCEPTORS</h5>
+
+<div class="highlight highlight-source-java"><pre>
+<span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">class</span> <span class="pl-en">RequestInterceptor</span> <span class="pl-k">implements</span> <span class="pl-e">HttpInterceptor</span> {
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onOpening</span>(<span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onConnecting</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {  }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">onConnected</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>) {  }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">HttpResult</span> <span class="pl-en">onResult</span>(<span class="pl-smi">HttpURLConnection</span> <span class="pl-v">httpURLConnection</span>, <span class="pl-smi">HttpRequestConfig</span> <span class="pl-v">httpRequestConfig</span>, <span class="pl-smi">HttpResult</span> <span class="pl-v">httpResult</span>) {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">HttpResult</span>(httpResult<span class="pl-k">.</span>getStatus(), <span class="pl-s"><span class="pl-pds">"</span>{ 'name': 'INTERCEPTED'} <span class="pl-pds">"</span></span>, <span class="pl-c1">null</span>) ;
+    }
+}
+
+<span class="pl-c1">...</span>
+
+<span class="pl-smi">Http</span><span class="pl-k">.</span><span class="pl-smi">Builder</span> builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Http</span>.<span class="pl-smi">Builder</span>(<span class="pl-s"><span class="pl-pds">"</span>https://dummyhost.com/posts<span class="pl-pds">"</span></span>);
+
+<span class="pl-smi">HttpRequestConfig</span> config <span class="pl-k">=</span> builder<span class="pl-k">.</span>get();
+
+config<span class="pl-k">.</span>getInterceptors()<span class="pl-k">.</span>add(<span class="pl-k">new</span> <span class="pl-smi">RequestInterceptor</span>());
+
+<span class="pl-smi">HttpResult</span> result <span class="pl-k">=</span>  <span class="pl-smi">Http</span><span class="pl-k">.</span>send(config);
+</pre></div>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
@@ -124,7 +202,7 @@ limitations under the License.
 </code></pre>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/fabianofranca/apollo-lib">Apollo-lib</a> is maintained by Apollo-11 Team.</span>
+        <span class="site-footer-owner"><a href="https://github.com/fabianofranca/apollo-lib">Apollo-lib</a> is maintained by <a href="https://github.com/fabianofranca">fabianofranca</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
