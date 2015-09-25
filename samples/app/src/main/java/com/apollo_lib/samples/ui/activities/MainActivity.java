@@ -3,14 +3,23 @@ package com.apollo_lib.samples.ui.activities;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.apollo_lib.network.Http;
+import com.apollo_lib.network.HttpInterceptor;
 import com.apollo_lib.network.HttpRequestConfig;
 import com.apollo_lib.network.HttpResult;
 import com.apollo_lib.samples.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.net.HttpURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,134 +37,251 @@ public class MainActivity extends AppCompatActivity {
         final TextView putText = (TextView)findViewById(R.id.put);
         final TextView deleteText = (TextView)findViewById(R.id.delete);
         final TextView errorText = (TextView)findViewById(R.id.error);
+        final TextView headerText = (TextView)findViewById(R.id.header);
 
-        AsyncTask<Void, Void, HttpResult> taskGet = new AsyncTask<Void, Void, HttpResult>() {
+        Http.toogleInterceptors();
+
+        final Switch interceptors = (Switch)findViewById(R.id.interceptors);
+
+        Http.getInterceptors().add(new ChangeUrlInterceptor());
+
+        interceptors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            protected HttpResult doInBackground(Void... params) {
-                Http.Builder builder = new Http.Builder("http://jsonplaceholder.typicode.com/posts/1");
-
-                try {
-                    HttpRequestConfig config = builder.get();
-
-                    return Http.send(config);
-                } catch (Exception e) {
-                    error = e.getMessage();
-                }
-
-                return null;
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Http.toogleInterceptors();
             }
+        });
 
+        Button send = (Button)findViewById(R.id.send);
+
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onPostExecute(HttpResult s) {
-                if (!error.isEmpty()) {
-                    errorText.setText(error);
-                }
-                else {
+            public void onClick(View v) {
+                getText.setText("GET...................");
+                postText.setText("POST................");
+                putText.setText("PUT...................");
+                deleteText.setText("DELETE............");
+                headerText.setText("HEADER............");
 
-                    getText.setText(getText.getText().toString() + s.getStatus());
-                }
+                final AsyncTask<Void, Void, HttpResult> taskGet = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/data");
+
+                        try {
+                            HttpRequestConfig config = builder.get();
+
+                            return Http.send(config);
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+
+                            getText.setText(getText.getText().toString() + s.getStatus());
+                        }
+                    }
+                };
+
+                final AsyncTask<Void, Void, HttpResult> taskPost = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/status/301");
+
+                        try {
+                            JSONObject json = new JSONObject();
+
+                            json.accumulate("title", "foo");
+                            json.accumulate("body", "bar");
+                            json.accumulate("userId", 1);
+
+                            HttpRequestConfig config = builder.post(json.toString());
+
+                            return Http.send(config);
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+
+                            postText.setText(postText.getText().toString() + s.getStatus());
+                        }
+                    }
+                };
+
+                final AsyncTask<Void, Void, HttpResult> taskPut = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/data");
+
+                        try {
+                            JSONObject json = new JSONObject();
+
+                            json.accumulate("title", "foo");
+                            json.accumulate("body", "bar");
+                            json.accumulate("userId", 1);
+
+                            HttpRequestConfig config = builder.put(json.toString());
+
+                            return Http.send(config);
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+
+                            putText.setText(putText.getText().toString() + s.getStatus());
+                        }
+                    }
+                };
+
+                final AsyncTask<Void, Void, HttpResult> taskDelete = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/data");
+
+                        try {
+                            HttpRequestConfig config = builder.delete();
+
+                            return Http.send(config);
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+                            deleteText.setText(deleteText.getText().toString() + s.getStatus());
+                        }
+                    }
+                };
+
+                final AsyncTask<Void, Void, HttpResult> taskHeader = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/data");
+
+                        try {
+                            HttpRequestConfig config = builder.get();
+
+                            config.getInterceptors().add(new HeaderInterceptor());
+
+                            if (!Http.interceptorsEnabled()) {
+                                config.toogleInterceptors();
+                            }
+
+                            config.addHeader("test", "test");
+
+                            return Http.send(config);
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+
+                            try {
+                                JSONObject jsonObject =  new JSONObject(s.getResponse());
+
+                                headerText.setText(headerText.getText().toString() + jsonObject.getJSONObject("headers").getString("test"));
+                            } catch (JSONException e) {
+                                headerText.setText(headerText.getText().toString() + "NOT FOUND!");
+                            }
+                        }
+                    }
+                };
+
+                taskGet.execute();
+                taskPost.execute();
+                taskPut.execute();
+                taskDelete.execute();
+                taskHeader.execute();
+
             }
-        };
+        });
 
-        AsyncTask<Void, Void, HttpResult> taskPost = new AsyncTask<Void, Void, HttpResult>() {
-            @Override
-            protected HttpResult doInBackground(Void... params) {
-                Http.Builder builder = new Http.Builder("http://jsonplaceholder.typicode.com/posts");
+    }
 
-                try {
-                    JSONObject json = new JSONObject();
+    public static class ChangeUrlInterceptor implements HttpInterceptor {
 
-                    json.accumulate("title", "foo");
-                    json.accumulate("body", "bar");
-                    json.accumulate("userId", 1);
+        @Override
+        public void onOpening(HttpRequestConfig httpRequestConfig) {
+            httpRequestConfig.setUrl("http://server.apollo-lib.com/status/401");
+        }
 
-                    HttpRequestConfig config = builder.post(json.toString());
+        @Override
+        public void onConnecting(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
 
-                    return Http.send(config);
-                } catch (Exception e) {
-                    error = e.getMessage();
-                }
+        }
 
-                return null;
-            }
+        @Override
+        public void onConnected(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
 
-            @Override
-            protected void onPostExecute(HttpResult s) {
-                if (!error.isEmpty()) {
-                    errorText.setText(error);
-                }
-                else {
+        }
 
-                    postText.setText(postText.getText().toString() + s.getStatus());
-                }
-            }
-        };
+        @Override
+        public HttpResult onResult(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig, HttpResult httpResult) {
+            return httpResult;
+        }
+    }
 
-        AsyncTask<Void, Void, HttpResult> taskPut = new AsyncTask<Void, Void, HttpResult>() {
-            @Override
-            protected HttpResult doInBackground(Void... params) {
-                Http.Builder builder = new Http.Builder("http://jsonplaceholder.typicode.com/posts/1");
+    public static class HeaderInterceptor implements HttpInterceptor {
 
-                try {
-                    JSONObject json = new JSONObject();
+        @Override
+        public void onOpening(HttpRequestConfig httpRequestConfig) {
+        }
 
-                    json.accumulate("title", "foo");
-                    json.accumulate("body", "bar");
-                    json.accumulate("userId", 1);
+        @Override
+        public void onConnecting(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
 
-                    HttpRequestConfig config = builder.put(json.toString());
+        }
 
-                    return Http.send(config);
-                } catch (Exception e) {
-                    error = e.getMessage();
-                }
+        @Override
+        public void onConnected(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
 
-                return null;
-            }
+        }
 
-            @Override
-            protected void onPostExecute(HttpResult s) {
-                if (!error.isEmpty()) {
-                    errorText.setText(error);
-                }
-                else {
-
-                    putText.setText(putText.getText().toString() + s.getStatus());
-                }
-            }
-        };
-
-        AsyncTask<Void, Void, HttpResult> taskDelete = new AsyncTask<Void, Void, HttpResult>() {
-            @Override
-            protected HttpResult doInBackground(Void... params) {
-                Http.Builder builder = new Http.Builder("http://jsonplaceholder.typicode.com/posts/1");
-
-                try {
-                    HttpRequestConfig config = builder.delete();
-
-                    return Http.send(config);
-                } catch (Exception e) {
-                    error = e.getMessage();
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(HttpResult s) {
-                if (!error.isEmpty()) {
-                    errorText.setText(error);
-                }
-                else {
-                    deleteText.setText(deleteText.getText().toString() + s.getStatus());
-                }
-            }
-        };
-
-        taskGet.execute();
-        taskPost.execute();
-        taskPut.execute();
-        taskDelete.execute();
+        @Override
+        public HttpResult onResult(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig, HttpResult httpResult) {
+            return new HttpResult(httpResult.getStatus(), "{ 'headers': { 'test': 'INTERCEPTED'} }", null);
+        }
     }
 
 }

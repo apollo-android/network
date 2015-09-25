@@ -33,8 +33,26 @@ public class HttpRequestConfig {
     private Charset charset;
     private ArrayList<HttpHeaderField> headerFields;
 
+    private ArrayList<HttpInterceptor> interceptors;
+
+    private boolean interceptorsEnabled;
+
+    public List<HttpInterceptor> getInterceptors() {
+        return interceptors;
+    }
+
+    public void toogleInterceptors() {
+        interceptorsEnabled = !interceptorsEnabled;
+    }
+
+    public boolean interceptorsEnabled() {
+        return interceptorsEnabled;
+    }
+
     public HttpRequestConfig() {
         headerFields = new ArrayList<>();
+        interceptors = new ArrayList<>();
+        interceptorsEnabled = true;
     }
 
     public void clearHeaders() {

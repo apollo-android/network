@@ -26,6 +26,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/delete"
         android:text="DELETE............"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:text="HEADER............"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INTERCEPTORS"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/interceptors"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEND"
+        android:id="@+id/send"/>
 
     <TextView
         android:layout_width="match_parent"

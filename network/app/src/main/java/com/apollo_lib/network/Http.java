@@ -24,10 +24,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Http {
     private static final String CONTENT_TYPE = "Content-type";
     private static final String AUTH_TOKEN = "x-access-token";
+
+    private static ArrayList<HttpInterceptor> interceptors = new ArrayList<>();
+
+    private static boolean interceptorsEnabled = true;
 
     public static class Builder {
         private final Charset DEFAULT_CHARSET = Charset.UTF8;
@@ -188,7 +194,31 @@ public class Http {
         return sb.toString();
     }
 
+    public static List<HttpInterceptor> getInterceptors() {
+        return interceptors;
+    }
+
+    public static void toogleInterceptors() {
+        interceptorsEnabled = !interceptorsEnabled;
+    }
+
+    public static boolean interceptorsEnabled() {
+        return interceptorsEnabled;
+    }
+
     public static HttpResult send(HttpRequestConfig request) throws IOException {
+        if (interceptorsEnabled) {
+            for (HttpInterceptor interceptor: interceptors) {
+                interceptor.onOpening(request);
+            }
+        }
+
+        if (request.interceptorsEnabled()) {
+            for (HttpInterceptor interceptor: request.getInterceptors()) {
+                interceptor.onOpening(request);
+            }
+        }
+
         URL url = new URL(request.getUrl());
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
@@ -214,6 +244,18 @@ public class Http {
 
             if (request.getAuthToken() != null && !request.getAuthToken().isEmpty()) {
                 conn.setRequestProperty(AUTH_TOKEN, request.getAuthToken());
+            }
+
+            if (interceptorsEnabled) {
+                for (HttpInterceptor interceptor: interceptors) {
+                    interceptor.onConnecting(conn, request);
+                }
+            }
+
+            if (request.interceptorsEnabled()) {
+                for (HttpInterceptor interceptor: request.getInterceptors()) {
+                    interceptor.onConnecting(conn, request);
+                }
             }
 
             conn.connect();
@@ -243,6 +285,18 @@ public class Http {
                 }
             }
 
+            if (interceptorsEnabled) {
+                for (HttpInterceptor interceptor: interceptors) {
+                    interceptor.onConnected(conn, request);
+                }
+            }
+
+            if (request.interceptorsEnabled()) {
+                for (HttpInterceptor interceptor: request.getInterceptors()) {
+                    interceptor.onConnected(conn, request);
+                }
+            }
+
             int statusCode = conn.getResponseCode();
 
             String response = "";
@@ -255,6 +309,19 @@ public class Http {
             }
 
             result = new HttpResult(statusCode, response, responseError);
+
+            if (interceptorsEnabled) {
+                for (HttpInterceptor interceptor: interceptors) {
+                    result = interceptor.onResult(conn, request, result);
+                }
+            }
+
+            if (request.interceptorsEnabled()) {
+                for (HttpInterceptor interceptor: request.getInterceptors()) {
+                    result = interceptor.onResult(conn, request, result);
+                }
+            }
+
         } finally {
             conn.disconnect();
         }
