@@ -14,6 +14,7 @@ import com.apollo_lib.network.Http;
 import com.apollo_lib.network.HttpInterceptor;
 import com.apollo_lib.network.HttpRequestConfig;
 import com.apollo_lib.network.HttpResult;
+import com.apollo_lib.network.HttpStatusCode;
 import com.apollo_lib.samples.R;
 
 import org.json.JSONException;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String error = "";
 
+    private boolean ignore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
         final TextView deleteText = (TextView)findViewById(R.id.delete);
         final TextView errorText = (TextView)findViewById(R.id.error);
         final TextView headerText = (TextView)findViewById(R.id.header);
+        final TextView callInterceptor = (TextView)findViewById(R.id.callInterceptor);
 
         Http.toogleInterceptors();
 
         final Switch interceptors = (Switch)findViewById(R.id.interceptors);
+        final Switch ignoreSwitch = (Switch)findViewById(R.id.ignore);
 
         Http.getInterceptors().add(new ChangeUrlInterceptor());
 
@@ -49,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Http.toogleInterceptors();
+            }
+        });
+
+        ignoreSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ignore = isChecked;
             }
         });
 
@@ -62,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 putText.setText("PUT...................");
                 deleteText.setText("DELETE............");
                 headerText.setText("HEADER............");
+                callInterceptor.setText("CALL INTERCEPTOR......");
 
                 final AsyncTask<Void, Void, HttpResult> taskGet = new AsyncTask<Void, Void, HttpResult>() {
                     @Override
@@ -228,11 +241,70 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
+                final AsyncTask<Void, Void, HttpResult> taskCallInterceptor = new AsyncTask<Void, Void, HttpResult>() {
+                    @Override
+                    protected HttpResult doInBackground(Void... params) {
+                        Http.Builder builder = new Http.Builder("http://server.apollo-lib.com/data");
+
+                        try {
+                            HttpRequestConfig config = builder.get();
+
+                            return Http.send(config, new HttpInterceptor() {
+                                @Override
+                                public void onOpening(HttpRequestConfig httpRequestConfig) {}
+
+                                @Override
+                                public void onConnecting(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) { }
+
+                                @Override
+                                public void onConnected(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) { }
+
+                                @Override
+                                public HttpResult onResult(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig, HttpResult httpResult) {
+                                    if (httpResult.getStatus() == HttpStatusCode.UNAUTHORIZED)
+                                    {
+                                        return httpResult;
+                                    } else {
+                                        return new HttpResult(HttpStatusCode.CREATED, httpResult.getResponse(), httpResult.getResponseError());
+                                    }
+                                }
+                            }, ignore);
+
+                        } catch (Exception e) {
+                            error = e.getMessage();
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(HttpResult s) {
+                        if (!error.isEmpty()) {
+                            errorText.setText(error);
+                        }
+                        else {
+                            if (s.getStatus() == HttpStatusCode.OK) {
+                                callInterceptor.setText(callInterceptor.getText().toString() + "NOT INTERCEPTED");
+                            }
+                            else {
+                                if (s.getStatus() == HttpStatusCode.UNAUTHORIZED) {
+                                    callInterceptor.setText(callInterceptor.getText().toString() + "INTERCEPTED BY CALL INTERCEPTOR AND OTHERS");
+                                }
+                                else {
+                                    callInterceptor.setText(callInterceptor.getText().toString() + "INTERCEPTED BY CALL INTERCEPTOR");
+                                }
+                            }
+                        }
+                    }
+                };
+
+
                 taskGet.execute();
                 taskPost.execute();
                 taskPut.execute();
                 taskDelete.execute();
                 taskHeader.execute();
+                taskCallInterceptor.execute();
 
             }
         });

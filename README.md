@@ -5,13 +5,13 @@ Apollo-lib
 Android libraries to make your life easier!
 
 
-Network 0.0.4
+Network 0.1.0
 -------------
 
 **Gradle**
 
 ```groovy
-compile 'com.apollo-lib:network:0.0.4'
+compile 'com.apollo-lib:network:0.1.0'
 ```
 
 ####HTTP
@@ -172,6 +172,35 @@ HttpRequestConfig config = builder.get();
 config.getInterceptors().add(new RequestInterceptor());
 
 HttpResult result =  Http.send(config);
+
+```
+
+#####CALL INTERCEPTORS
+
+```java
+
+Http.Builder builder = new Http.Builder("https://dummyhost.com/posts");
+
+HttpRequestConfig config = builder.get();
+
+
+// THE LAST PARAMETER INDICATES THAT OTHERS INTERCEPTORS ARE IGNORED
+HttpResult result =  Http.send(config, new HttpInterceptor {
+    @Override
+    public void onOpening(HttpRequestConfig httpRequestConfig) { }
+
+    @Override
+    public void onConnecting(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {  }
+
+    @Override
+    public void onConnected(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {  }
+
+    @Override
+    public HttpResult onResult(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig, HttpResult httpResult) {
+        return new HttpResult(httpResult.getStatus(), "{ 'name': 'INTERCEPTED'} ", null) ;
+    }    
+},
+true);
 
 ```
 

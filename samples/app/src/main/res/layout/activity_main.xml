@@ -32,6 +32,12 @@
         android:id="@+id/header"
         android:text="HEADER............"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/callInterceptor"
+        android:text="CALL INTERCEPTOR......"/>
+
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,6 +45,14 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:id="@+id/interceptors"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IGNORE OTHERS INTERCEPTORS"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/ignore"/>
 
     <Button
         android:layout_width="wrap_content"

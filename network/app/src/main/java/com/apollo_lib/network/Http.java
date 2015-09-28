@@ -207,17 +207,26 @@ public class Http {
     }
 
     public static HttpResult send(HttpRequestConfig request) throws IOException {
-        if (interceptorsEnabled) {
+        return Http.send(request, null, false);
+    }
+
+    public static HttpResult send(HttpRequestConfig request, HttpInterceptor httpInterceptor, boolean ignoreOthersInterceptors) throws IOException {
+        if (interceptorsEnabled && !ignoreOthersInterceptors) {
             for (HttpInterceptor interceptor: interceptors) {
                 interceptor.onOpening(request);
             }
         }
 
-        if (request.interceptorsEnabled()) {
+        if (request.interceptorsEnabled() && !ignoreOthersInterceptors) {
             for (HttpInterceptor interceptor: request.getInterceptors()) {
                 interceptor.onOpening(request);
             }
         }
+
+        if (httpInterceptor != null) {
+            httpInterceptor.onOpening(request);
+        }
+
 
         URL url = new URL(request.getUrl());
         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -246,16 +255,20 @@ public class Http {
                 conn.setRequestProperty(AUTH_TOKEN, request.getAuthToken());
             }
 
-            if (interceptorsEnabled) {
+            if (interceptorsEnabled && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: interceptors) {
                     interceptor.onConnecting(conn, request);
                 }
             }
 
-            if (request.interceptorsEnabled()) {
+            if (request.interceptorsEnabled() && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: request.getInterceptors()) {
                     interceptor.onConnecting(conn, request);
                 }
+            }
+
+            if (httpInterceptor != null) {
+                httpInterceptor.onConnecting(conn, request);
             }
 
             conn.connect();
@@ -285,17 +298,22 @@ public class Http {
                 }
             }
 
-            if (interceptorsEnabled) {
+            if (interceptorsEnabled && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: interceptors) {
                     interceptor.onConnected(conn, request);
                 }
             }
 
-            if (request.interceptorsEnabled()) {
+            if (request.interceptorsEnabled() && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: request.getInterceptors()) {
                     interceptor.onConnected(conn, request);
                 }
             }
+
+            if (httpInterceptor != null) {
+                httpInterceptor.onConnected(conn, request);
+            }
+
 
             int statusCode = conn.getResponseCode();
 
@@ -310,16 +328,20 @@ public class Http {
 
             result = new HttpResult(statusCode, response, responseError);
 
-            if (interceptorsEnabled) {
+            if (interceptorsEnabled  && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: interceptors) {
                     result = interceptor.onResult(conn, request, result);
                 }
             }
 
-            if (request.interceptorsEnabled()) {
+            if (request.interceptorsEnabled()  && !ignoreOthersInterceptors) {
                 for (HttpInterceptor interceptor: request.getInterceptors()) {
                     result = interceptor.onResult(conn, request, result);
                 }
+            }
+
+            if (httpInterceptor != null) {
+                result = httpInterceptor.onResult(conn, request, result);
             }
 
         } finally {
