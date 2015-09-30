@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         final Switch interceptors = (Switch)findViewById(R.id.interceptors);
         final Switch ignoreSwitch = (Switch)findViewById(R.id.ignore);
 
-        Http.getInterceptors().add(new ChangeUrlInterceptor());
-
         interceptors.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -309,29 +307,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    public static class ChangeUrlInterceptor implements HttpInterceptor {
-
-        @Override
-        public void onOpening(HttpRequestConfig httpRequestConfig) {
-            httpRequestConfig.setUrl("http://server.apollo-lib.com/status/401");
-        }
-
-        @Override
-        public void onConnecting(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
-
-        }
-
-        @Override
-        public void onConnected(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig) {
-
-        }
-
-        @Override
-        public HttpResult onResult(HttpURLConnection httpURLConnection, HttpRequestConfig httpRequestConfig, HttpResult httpResult) {
-            return httpResult;
-        }
     }
 
     public static class HeaderInterceptor implements HttpInterceptor {
